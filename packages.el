@@ -80,7 +80,7 @@
 
   (if (boundp 'org-user-agenda-files)
       (setq org-agenda-files org-user-agenda-files)
-    (setq org-agenda-files (quote ("~/git/org"))))
+    (setq org-agenda-files (quote ("~/org"))))
 
   ;; Do not dim blocked tasks
   (setq org-agenda-dim-blocked-tasks nil)
@@ -102,18 +102,18 @@
                   (tags "REFILE"
                         ((org-agenda-overriding-header "Tasks to Refile")
                          (org-tags-match-list-sublevels nil)))
-                  (tags-todo "-CANCELLED/!"
+                  (tags-todo "-CANC/!"
                              ((org-agenda-overriding-header "Stuck Projects")
                               (org-agenda-skip-function 'bh/skip-non-stuck-projects)
                               (org-agenda-sorting-strategy
                                '(category-keep))))
-                  (tags-todo "-HOLD-CANCELLED/!"
+                  (tags-todo "-HOLD-CANC/!"
                              ((org-agenda-overriding-header "Projects")
                               (org-agenda-skip-function 'bh/skip-non-projects)
                               (org-tags-match-list-sublevels 'indented)
                               (org-agenda-sorting-strategy
                                '(category-keep))))
-                  (tags-todo "-CANCELLED/!NEXT"
+                  (tags-todo "-CANC/!NEXT"
                              ((org-agenda-overriding-header
                                (concat "Project Next Tasks"
                                        (if bh/hide-scheduled-and-waiting-next-tasks
@@ -126,7 +126,7 @@
                               (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
                               (org-agenda-sorting-strategy
                                '(todo-state-down effort-up category-keep))))
-                  (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                  (tags-todo "-REFILE-CANC-WAIT-HOLD/!"
                              ((org-agenda-overriding-header
                                (concat "Project Subtasks"
                                        (if bh/hide-scheduled-and-waiting-next-tasks
@@ -138,7 +138,7 @@
                               (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
                               (org-agenda-sorting-strategy
                                '(category-keep))))
-                  (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                  (tags-todo "-REFILE-CANC-WAIT-HOLD/!"
                              ((org-agenda-overriding-header
                                (concat "Standalone Tasks"
                                        (if bh/hide-scheduled-and-waiting-next-tasks
@@ -150,7 +150,7 @@
                               (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
                               (org-agenda-sorting-strategy
                                '(category-keep))))
-                  (tags-todo "-CANCELLED+WAITING|HOLD/!"
+                  (tags-todo "-CANC+WAIT|HOLD/!"
                              ((org-agenda-overriding-header
                                (concat "Waiting and Postponed Tasks"
                                        (if bh/hide-scheduled-and-waiting-next-tasks
@@ -423,7 +423,7 @@ so change the default 'F' binding in the agenda to allow both"
   (setq org-agenda-skip-scheduled-if-deadline-is-shown  (quote repeated-after-deadline))
 
   (setq org-agenda-include-diary nil)
-  (setq org-agenda-diary-file "~/git/org/diary.org")
+  (setq org-agenda-diary-file "~/org/diary.org")
   (setq org-agenda-insert-diary-extract-time t)
 
   ;; Include agenda archive files when searching for things
@@ -434,7 +434,7 @@ so change the default 'F' binding in the agenda to allow both"
   (spacemacs|use-package-add-hook org
     :post-config
     (progn
-      (setq org-default-notes-file "~/git/org/refile.org")
+      (setq org-default-notes-file "~/org/notes.org")
 
       (require 'org-id)
       (defun bh/clock-in-task-by-id (id)
@@ -515,7 +515,7 @@ so change the default 'F' binding in the agenda to allow both"
   ;; =TODO= state keywords and colour settings:
   (setq org-todo-keywords
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
-                (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+                (sequence "WAIT(w@/!)" "HOLD(h@/!)" "|" "CANC(c@/!)" "PHON" "MEET"))))
 
   ;; ;; TODO Other todo keywords doesn't have appropriate faces yet. They should
   ;; ;; have faces similar to spacemacs defaults.
@@ -523,11 +523,11 @@ so change the default 'F' binding in the agenda to allow both"
   ;;       (quote (("TODO" :foreground "red" :weight bold)
   ;;               ("NEXT" :foreground "blue" :weight bold)
   ;;               ("DONE" :foreground "forest green" :weight bold)
-  ;;               ("WAITING" :foreground "orange" :weight bold)
+  ;;               ("WAIT" :foreground "orange" :weight bold)
   ;;               ("HOLD" :foreground "magenta" :weight bold)
-  ;;               ("CANCELLED" :foreground "forest green" :weight bold)
-  ;;               ("MEETING" :foreground "forest green" :weight bold)
-  ;;               ("PHONE" :foreground "forest green" :weight bold))))
+  ;;               ("CANC" :foreground "forest green" :weight bold)
+  ;;               ("MEET" :foreground "forest green" :weight bold)
+  ;;               ("PHON" :foreground "forest green" :weight bold))))
 
   ;; (setq org-use-fast-todo-selection t)
 
@@ -537,34 +537,34 @@ so change the default 'F' binding in the agenda to allow both"
   (setq org-treat-S-cursor-todo-selection-as-state-change nil)
 
   (setq org-todo-state-tags-triggers
-        (quote (("CANCELLED" ("CANCELLED" . t))
-                ("WAITING" ("WAITING" . t))
-                ("HOLD" ("WAITING") ("HOLD" . t))
-                (done ("WAITING") ("HOLD"))
-                ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-                ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-                ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+        (quote (("CANC" ("CANC" . t))
+                ("WAIT" ("WAIT" . t))
+                ("HOLD" ("WAIT") ("HOLD" . t))
+                (done ("WAIT") ("HOLD"))
+                ("TODO" ("WAIT") ("CANC") ("HOLD"))
+                ("NEXT" ("WAIT") ("CANC") ("HOLD"))
+                ("DONE" ("WAIT") ("CANC") ("HOLD")))))
 
-  (setq org-directory "~/git/org")
+  (setq org-directory "~/org")
 
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls,
   ;; meetings, and org-protocol
   (setq org-capture-templates
-        (quote (("t" "todo" entry (file "~/git/org/refile.org")
+        (quote (("t" "todo" entry (file "~/org/refile.org")
                  "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("r" "respond" entry (file "~/git/org/refile.org")
+                ("r" "respond" entry (file "~/org/refile.org")
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-                ("n" "note" entry (file "~/git/org/refile.org")
+                ("n" "note" entry (file "~/org/refile.org")
                  "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-                ("j" "Journal" entry (file+datetree "~/git/org/diary.org")
+                ("j" "Journal" entry (file+datetree "~/org/diary.org")
                  "* %?\n%U\n" :clock-in t :clock-resume t)
-                ("w" "org-protocol" entry (file "~/git/org/refile.org")
+                ("w" "org-protocol" entry (file "~/org/refile.org")
                  "* TODO Review %c\n%U\n" :immediate-finish t)
-                ("m" "Meeting" entry (file "~/git/org/refile.org")
-                 "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                ("p" "Phone call" entry (file "~/git/org/refile.org")
-                 "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                ("h" "Habit" entry (file "~/git/org/refile.org")
+                ("m" "Meeting" entry (file "~/org/refile.org")
+                 "* MEET with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+                ("p" "Phone call" entry (file "~/org/refile.org")
+                 "* PHON %? :PHONE:\n%U" :clock-in t :clock-resume t)
+                ("h" "Habit" entry (file "~/org/refile.org")
                  "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
   ;; Remove empty LOGBOOK drawers on clock out
@@ -765,7 +765,7 @@ A prefix arg forces clock in of the default task."
                               ("@home" . ?H)
                               ("@farm" . ?f)
                               (:endgroup)
-                              ("WAITING" . ?w)
+                              ("WAIT" . ?w)
                               ("HOLD" . ?h)
                               ("PERSONAL" . ?P)
                               ("WORK" . ?W)
@@ -774,8 +774,8 @@ A prefix arg forces clock in of the default task."
                               ("NORANG" . ?N)
                               ("crypt" . ?E)
                               ("NOTE" . ?n)
-                              ("CANCELLED" . ?c)
-                              ("FLAGGED" . ??))))
+                              ("CANC" . ?c)
+                              ("FLAG" . ??))))
 
   ;; Allow setting single tags without the menu
   (setq org-fast-tag-selection-single-key (quote expert))
@@ -871,7 +871,7 @@ Callers of this function already widen the buffer view."
               (save-excursion
                 (forward-line 1)
                 (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT " subtree-end t))
-                  (unless (member "WAITING" (org-get-tags-at))
+                  (unless (member "WAIT" (org-get-tags-at))
                     (setq has-next t))))
               (if has-next
                   nil
@@ -890,7 +890,7 @@ Callers of this function already widen the buffer view."
               (save-excursion
                 (forward-line 1)
                 (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT " subtree-end t))
-                  (unless (member "WAITING" (org-get-tags-at))
+                  (unless (member "WAIT" (org-get-tags-at))
                     (setq has-next t))))
               (if has-next
                   next-headline
@@ -947,7 +947,7 @@ Skip project and sub-project tasks, habits, and project related tasks."
          ((org-is-habit-p)
           next-headline)
          ((and bh/hide-scheduled-and-waiting-next-tasks
-               (member "WAITING" (org-get-tags-at)))
+               (member "WAIT" (org-get-tags-at)))
           next-headline)
          ((bh/is-project-p)
           next-headline)
