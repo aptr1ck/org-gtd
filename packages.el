@@ -455,7 +455,8 @@ so change the default 'F' binding in the agenda to allow both"
   ;; Custom Key Bindings
   (global-set-key (kbd "<f5>") 'bh/org-todo)
   (global-set-key (kbd "<S-f5>") 'bh/widen)
-  (global-set-key (kbd "<f10>") 'bh/set-truncate-lines)
+  ;; TODO: PMcD 2021.07.15 - Do I need this? I want to use F10 for menu-bar-open
+  ;;(global-set-key (kbd "<f10>") 'bh/set-truncate-lines)
   (global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
   (global-set-key (kbd "<f9> <f9>") 'bh/show-org-agenda)
   (global-set-key (kbd "<f9> c") 'calendar)
