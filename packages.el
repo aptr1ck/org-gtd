@@ -455,8 +455,7 @@ so change the default 'F' binding in the agenda to allow both"
   ;; Custom Key Bindings
   (global-set-key (kbd "<f5>") 'bh/org-todo)
   (global-set-key (kbd "<S-f5>") 'bh/widen)
-  ;; TODO: PMcD 2021.07.15 - do I need this? I want F10 for menu-bar-open
-  ;;(global-set-key (kbd "<f10>") 'bh/set-truncate-lines)
+  (global-set-key (kbd "<f10>") 'bh/set-truncate-lines)
   (global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
   (global-set-key (kbd "<f9> <f9>") 'bh/show-org-agenda)
   (global-set-key (kbd "<f9> c") 'calendar)
@@ -1110,20 +1109,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   ;; Don't enable this because it breaks access to emacs from my
   ;; Android phone
   (setq org-startup-with-inline-images nil)
-
-  ;; =====================
-  ;; PMcD custom functions
-  ;; =====================
-  ;; Launch Outlook links in Outlook
-  (defcustom org-outlook-location (w32-short-file-name “c:/Program Files/Microsoft Office 15/root/office16/OUTLOOK.exe”)
-    “* Microsoft Outlook 365 location.”
-    :type ‘string
-    :group ‘org-outlook)
-  ;; Launch OneNote links in OneNote
-  (org-add-link-type "onenote" 'org-onenote-open) (
-    defun org-onenote-open (link) "Open the OneNote item identified by the unique OneNote URL." 
-    (w32-shell-execute "open" "C:\\Program Files\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link))
-  ))
 
   ;; ;; experimenting with docbook exports - not finished
   ;; (setq org-export-docbook-xsl-fo-proc-command "fop %s %s")
