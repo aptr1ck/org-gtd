@@ -518,17 +518,17 @@ so change the default 'F' binding in the agenda to allow both"
         (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
                 (sequence "WAIT(w@/!)" "HOLD(h@/!)" "|" "CANC(c@/!)" "PHON" "MEET"))))
 
-  ;; ;; TODO Other todo keywords doesn't have appropriate faces yet. They should
-  ;; ;; have faces similar to spacemacs defaults.
-  ;; (setq org-todo-keyword-faces
-  ;;       (quote (("TODO" :foreground "red" :weight bold)
-  ;;               ("NEXT" :foreground "blue" :weight bold)
-  ;;               ("DONE" :foreground "forest green" :weight bold)
-  ;;               ("WAIT" :foreground "orange" :weight bold)
-  ;;               ("HOLD" :foreground "magenta" :weight bold)
-  ;;               ("CANC" :foreground "forest green" :weight bold)
-  ;;               ("MEET" :foreground "forest green" :weight bold)
-  ;;               ("PHON" :foreground "forest green" :weight bold))))
+   ;; TODO Other todo keywords doesn't have appropriate faces yet. They should
+   ;; have faces similar to spacemacs defaults.
+   (setq org-todo-keyword-faces
+         (quote (;;("TODO" :foreground "red" :weight bold)
+                 ("NEXT" :foreground "cyan" :weight bold)
+                 ("DONE" :foreground "forest green" :weight bold)
+                 ("WAIT" :foreground "orange" :weight bold)
+                 ("HOLD" :foreground "magenta" :weight bold)
+                 ("CANC" :foreground "forest green" :weight bold)
+                 ("MEET" :foreground "forest green" :weight bold)
+                 ("PHON" :foreground "forest green" :weight bold))))
 
   ;; (setq org-use-fast-todo-selection t)
 
