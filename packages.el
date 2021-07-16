@@ -80,7 +80,7 @@
 
   (if (boundp 'org-user-agenda-files)
       (setq org-agenda-files org-user-agenda-files)
-    (setq org-agenda-files (quote ("~/org"))))
+    (setq org-agenda-files (quote ("C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org"))))
 
   ;; Do not dim blocked tasks
   (setq org-agenda-dim-blocked-tasks nil)
@@ -423,7 +423,7 @@ so change the default 'F' binding in the agenda to allow both"
   (setq org-agenda-skip-scheduled-if-deadline-is-shown  (quote repeated-after-deadline))
 
   (setq org-agenda-include-diary nil)
-  (setq org-agenda-diary-file "~/org/diary.org")
+  (setq org-agenda-diary-file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\diary.org")
   (setq org-agenda-insert-diary-extract-time t)
 
   ;; Include agenda archive files when searching for things
@@ -434,7 +434,7 @@ so change the default 'F' binding in the agenda to allow both"
   (spacemacs|use-package-add-hook org
     :post-config
     (progn
-      (setq org-default-notes-file "~/org/notes.org")
+      (setq org-default-notes-file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\notes.org")
 
       (require 'org-id)
       (defun bh/clock-in-task-by-id (id)
@@ -506,8 +506,8 @@ so change the default 'F' binding in the agenda to allow both"
 
   (defun bh/make-org-scratch ()
     (interactive)
-    (find-file "/tmp/publish/scratch.org")
-    (gnus-make-directory "/tmp/publish"))
+    (find-file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\publish\\scratch.org")
+    (gnus-make-directory "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\publish"))
 
   (defun bh/switch-to-scratch ()
     (interactive)
@@ -546,26 +546,26 @@ so change the default 'F' binding in the agenda to allow both"
                 ("NEXT" ("WAIT") ("CANC") ("HOLD"))
                 ("DONE" ("WAIT") ("CANC") ("HOLD")))))
 
-  (setq org-directory "~/org")
+  (setq org-directory "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\")
 
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls,
   ;; meetings, and org-protocol
   (setq org-capture-templates
-        (quote (("t" "todo" entry (file "~/org/refile.org")
+        (quote (("t" "todo" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
                  "* TODO %?\n%U\n" :clock-in t :clock-resume t)
-                ("r" "respond" entry (file "~/org/refile.org")
+                ("r" "respond" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
                  "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n" :clock-in t :clock-resume t :immediate-finish t)
-                ("n" "note" entry (file "~/org/refile.org")
+                ("n" "note" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
                  "* %? :NOTE:\n%U\n" :clock-in t :clock-resume t)
-                ("j" "Journal" entry (file+datetree "~/org/diary.org")
+                ("j" "Journal" entry (file+datetree "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\diary.org")
                  "* %?\n%U\n" :clock-in t :clock-resume t)
-                ("w" "org-protocol" entry (file "~/org/refile.org")
+                ("w" "org-protocol" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
                  "* TODO Review %c\n%U\n" :immediate-finish t)
-                ("m" "Meeting" entry (file "~/org/refile.org")
+                ("m" "Meeting" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
                  "* MEET with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                ("p" "Phone call" entry (file "~/org/refile.org")
+                ("p" "Phone call" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
                  "* PHON %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                ("h" "Habit" entry (file "~/org/refile.org")
+                ("h" "Habit" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
                  "* NEXT %?\n%U\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
   ;; Remove empty LOGBOOK drawers on clock out
@@ -1109,7 +1109,28 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
   ;; Don't enable this because it breaks access to emacs from my
   ;; Android phone
-  (setq org-startup-with-inline-images nil)
+  ;;(setq org-startup-with-inline-images nil)
+
+  ;; Enable the display of the clocked in task in the spaceline
+  (spaceline-toggle-org-clock-on)
+
+  ;; Enable the opening of OneNote links in the app
+  (org-add-link-type "onenote" 'org-onenote-open) (
+  defun org-onenote-open (link) "Open the OneNote item identified by the unique OneNote URL." 
+    (w32-shell-execute "open" "C:\\Program Files\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link))
+  ))
+
+  ;; Enable the opening of Outlook links in the app
+  (org-add-link-type "outlook" 'org-outlook-open) (
+  defun org-outlook-open (link) "Open the Outlook item identified by the unique Outlook URL." 
+    (w32-shell-execute "open" "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.exe" (concat "/hyperlink " "outlook:" (shell-quote-argument link))
+  ))
+
+  ;;Replace all freakin' ^M chars in the current buffer
+  ;; PMcD 2021.07.16
+  (fset 'replace-ctrlms
+   [escape ?< escape ?% ?\C-q ?\C-m return ?\C-q ?\C-j return ?!])
+  (global-set-key "\C-cm" 'replace-ctrlms)
 
   ;; ;; experimenting with docbook exports - not finished
   ;; (setq org-export-docbook-xsl-fo-proc-command "fop %s %s")
