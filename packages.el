@@ -502,7 +502,7 @@ so change the default 'F' binding in the agenda to allow both"
       (switch-to-buffer "*Org Agenda( )*")
     (switch-to-buffer "*Org Agenda*"))
   (delete-other-windows))
-  
+
   (defun bh/set-truncate-lines ()
     "Toggle value of truncate-lines and refresh window display."
     (interactive)
@@ -780,7 +780,8 @@ A prefix arg forces clock in of the default task."
                               ("WORK" . ?W)
                               ("FARM" . ?F)
                               ("ORG" . ?O)
-                              ("NORANG" . ?N)
+                              ("REFILE" . ?R)
+                              ("TEST" . ?T)
                               ("crypt" . ?E)
                               ("NOTE" . ?n)
                               ("CANC" . ?c)
