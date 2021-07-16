@@ -496,6 +496,13 @@ so change the default 'F' binding in the agenda to allow both"
       (org-cycle)
       (org-cycle)))
 
+  (defun bh/show-org-agenda ()
+  (interactive)
+  (if org-agenda-sticky
+      (switch-to-buffer "*Org Agenda( )*")
+    (switch-to-buffer "*Org Agenda*"))
+  (delete-other-windows))
+  
   (defun bh/set-truncate-lines ()
     "Toggle value of truncate-lines and refresh window display."
     (interactive)
