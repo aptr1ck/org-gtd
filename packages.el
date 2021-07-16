@@ -462,6 +462,7 @@ so change the default 'F' binding in the agenda to allow both"
   (global-set-key (kbd "<f9> c") 'calendar)
   (global-set-key (kbd "<f9> g") 'gnus)
   (global-set-key (kbd "<f9> h") 'bh/hide-other)
+  (global-set-key (kbd "<f9> H") (lambda() (interactive)(find-file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\index.org")))
   (global-set-key (kbd "<f9> n") 'bh/toggle-next-task-display)
 
   (global-set-key (kbd "<f9> I") 'bh/punch-in)
