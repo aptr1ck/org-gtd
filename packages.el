@@ -67,9 +67,16 @@
     :defer t
     :init
     (progn
-      (define-key global-map (kbd "<f9> r") 'boxquote-region)
+      (define-key global-map (kbd "<f9> R") 'boxquote-region)
       (define-key global-map (kbd "<f9> f") 'boxquote-insert-file))
     ))
+
+;; PMcD 2021.07.17
+;; Specify path to org files
+(defconst user-org-dir
+  (cond ((boundp 'user-org-directory)
+         user-emacs-directory)
+        (t "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\")))
 
 (defun gtd/post-init-org-agenda()
   (require 'org-habit)
@@ -80,7 +87,7 @@
 
   (if (boundp 'org-user-agenda-files)
       (setq org-agenda-files org-user-agenda-files)
-    (setq org-agenda-files (quote ("C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org"))))
+    (setq org-agenda-files (quote ((expand-file-name "org" user-org-dir)))))
 
   ;; Do not dim blocked tasks
   (setq org-agenda-dim-blocked-tasks nil)
@@ -423,7 +430,7 @@ so change the default 'F' binding in the agenda to allow both"
   (setq org-agenda-skip-scheduled-if-deadline-is-shown  (quote repeated-after-deadline))
 
   (setq org-agenda-include-diary nil)
-  (setq org-agenda-diary-file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\diary.org")
+  (setq org-agenda-diary-file (expand-file-name "diary.org" user-org-dir))
   (setq org-agenda-insert-diary-extract-time t)
 
   ;; Include agenda archive files when searching for things
@@ -434,7 +441,7 @@ so change the default 'F' binding in the agenda to allow both"
   (spacemacs|use-package-add-hook org
     :post-config
     (progn
-      (setq org-default-notes-file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\notes.org")
+      (setq org-default-notes-file (expand-file-name "notes.org" user-org-dir))
 
       (require 'org-id)
       (defun bh/clock-in-task-by-id (id)
@@ -462,14 +469,14 @@ so change the default 'F' binding in the agenda to allow both"
   (global-set-key (kbd "<f9> c") 'calendar)
   (global-set-key (kbd "<f9> g") 'gnus)
   (global-set-key (kbd "<f9> h") 'bh/hide-other)
-  (global-set-key (kbd "<f9> H") (lambda() (interactive)(find-file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\index.org")))
+  (global-set-key (kbd "<f9> H") (lambda() (interactive)(find-file (expand-file-name "index.org" user-org-dir))))
   (global-set-key (kbd "<f9> n") 'bh/toggle-next-task-display)
 
   (global-set-key (kbd "<f9> I") 'bh/punch-in)
   (global-set-key (kbd "<f9> O") 'bh/punch-out)
 
   (global-set-key (kbd "<f9> o") 'bh/make-org-scratch)
-
+  (global-set-key (kbd "<f9> r") 'org-refile)
   (global-set-key (kbd "<f9> s") 'bh/switch-to-scratch)
 
   (global-set-key (kbd "<f9> S") 'org-save-all-org-buffers)
@@ -514,8 +521,8 @@ so change the default 'F' binding in the agenda to allow both"
 
   (defun bh/make-org-scratch ()
     (interactive)
-    (find-file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\publish\\scratch.org")
-    (gnus-make-directory "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\publish"))
+    (find-file (expand-file-name "scratch.org" user-org-dir))
+    (gnus-make-directory (expand-file-name "publish" user-org-dir)))
 
   (defun bh/switch-to-scratch ()
     (interactive)
@@ -554,26 +561,24 @@ so change the default 'F' binding in the agenda to allow both"
                 ("NEXT" ("WAIT") ("CANC") ("HOLD"))
                 ("DONE" ("WAIT") ("CANC") ("HOLD")))))
 
-  (setq org-directory "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\")
-
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls,
   ;; meetings, and org-protocol
   (setq org-capture-templates
-        (quote (("t" "todo" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
+        (quote (("t" "todo" entry (file (expand-file-name "refile.org" user-org-dir))
                  "*** TODO %?\n%U\n" :clock-in t :clock-resume t)
-                ("r" "respond" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
+                ("r" "respond" entry (file (expand-file-name "refile.org" user-org-dir))
                  "*** NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n" :clock-in t :clock-resume t :immediate-finish t)
-                ("n" "note" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
+                ("n" "note" entry (file (expand-file-name "refile.org" user-org-dir))
                  "*** %? :NOTE:\n%U\n" :clock-in t :clock-resume t)
-                ("j" "Journal" entry (file+datetree "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\diary.org")
+                ("j" "Journal" entry (file+datetree (expand-file-name "diary.org" user-org-dir))
                  "*** %?\n%U\n" :clock-in t :clock-resume t)
-                ("w" "org-protocol" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
+                ("w" "org-protocol" entry (file (expand-file-name "refile.org" user-org-dir))
                  "*** TODO Review %c\n%U\n" :immediate-finish t)
-                ("m" "Meeting" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
+                ("m" "Meeting" entry (file (expand-file-name "refile.org" user-org-dir))
                  "*** MEET with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                ("p" "Phone call" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
+                ("p" "Phone call" entry (file (expand-file-name "refile.org" user-org-dir))
                  "*** PHON %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                ("h" "Habit" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org")
+                ("h" "Habit" entry (file (expand-file-name "refile.org" user-org-dir))
                  "*** NEXT %?\n%U\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
   ;; Remove empty LOGBOOK drawers on clock out
