@@ -78,6 +78,10 @@
          user-emacs-directory)
         (t "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\")))
 
+;; Specify path to org files for mobileorg
+(setq org-directory "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\")
+(setq org-mobile-directory "C:\\Users\\patri\\iCloudDrive\\iCloud~com~mobileorg~mobileorg\\")
+
 (defun gtd/post-init-org-agenda()
   (require 'org-habit)
 
@@ -97,6 +101,7 @@
 
   ;; Custom agenda command definitions
   (setq org-agenda-custom-commands
+        ;;(quote (load-file (expand-file-name "customers.el" user-org-dir)))
         (quote (("N" "Notes" tags "NOTE"
                  ((org-agenda-overriding-header "Notes")
                   (org-tags-match-list-sublevels t)))
@@ -1162,11 +1167,24 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
     (w32-shell-execute "open" "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.exe" (concat "/hyperlink " "outlook:" (shell-quote-argument link))
   ))
 
-  ;;Replace all freakin' ^M chars in the current buffer
-  ;; PMcD 2021.07.16
-  (fset 'replace-ctrlms
-   [escape ?< escape ?% ?\C-q ?\C-m return ?\C-q ?\C-j return ?!])
-  (global-set-key "\C-cm" 'replace-ctrlms)
+  ;; PMcD 2021.07.18
+  ;; From: https://emacs.stackexchange.com/questions/19843/how-to-automatically-adjust-an-org-task-state-with-its-children-checkboxes
+  (defun org-summary-todo (n-done n-not-done)
+  "Switch entry to DONE when all subentries are done, to TODO otherwise."
+  (let (org-log-done org-log-states)   ; turn off logging
+    (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
+  ;;
+  (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+
+  ;;Replace all ^M chars in the current buffer
+  ;; PMcD 2021.07.19
+  (defun dos2unix ()
+    "Replace DOS eolns CR LF with Unix eolns CR"
+    (interactive)
+      (goto-char (point-min))
+        (while (search-forward "\r" nil t) (replace-match "")))
+  ;; C-c m to call the function
+  (global-set-key "\C-cm" 'dos2unix);;replace-ctrlms)
 
   ;; ;; experimenting with docbook exports - not finished
   ;; (setq org-export-docbook-xsl-fo-proc-command "fop %s %s")
