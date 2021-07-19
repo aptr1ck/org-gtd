@@ -73,10 +73,7 @@
 
 ;; PMcD 2021.07.17
 ;; Specify path to org files
-(defconst user-org-dir
-  (cond ((boundp 'user-org-directory)
-         user-emacs-directory)
-        (t "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\")))
+(defconst user-org-dir "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\" "org files location")
 
 ;; Specify path to org files for mobileorg
 (setq org-directory "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\")
@@ -109,7 +106,7 @@
                  ((org-agenda-overriding-header "Habits")
                   (org-agenda-sorting-strategy
                    '(todo-state-down effort-up category-keep))))
-                (" " "Agenda"
+                (" " "Agenda - Boss Mode"
                  ((agenda "" nil)
                   (tags "REFILE"
                         ((org-agenda-overriding-header "Tasks to Refile")
@@ -176,7 +173,43 @@
                         ((org-agenda-overriding-header "Tasks to Archive")
                          (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
                          (org-tags-match-list-sublevels nil))))
-                 nil))))
+                 nil)
+                 ("w" "Agenda - Worker Mode"
+                 ((agenda "" nil)
+                  (tags-todo "-HOLD-CANC/!"
+                             ((org-agenda-overriding-header "Projects")
+                              (org-agenda-skip-function 'bh/skip-non-projects)
+                              (org-tags-match-list-sublevels 'indented)
+                              (org-agenda-sorting-strategy
+                               '(category-keep))))
+                  (tags-todo "-CANC/!NEXT"
+                             ((org-agenda-overriding-header
+                               (concat "Project Next Tasks"
+                                       (if bh/hide-scheduled-and-waiting-next-tasks
+                                           ""
+                                         " (including WAITING and SCHEDULED tasks)")))
+                              (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
+                              (org-tags-match-list-sublevels t)
+                              (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-sorting-strategy
+                               '(todo-state-down effort-up category-keep))))
+                  (tags-todo "-REFILE-CANC-WAIT-HOLD/!NEXT"
+                             ((org-agenda-overriding-header
+                               (concat "Standalone Next Tasks"
+                                       (if bh/hide-scheduled-and-waiting-next-tasks
+                                           ""
+                                         " (including WAITING and SCHEDULED tasks)")))
+                              (org-agenda-skip-function 'bh/skip-project-tasks)
+                              (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                              (org-agenda-sorting-strategy
+                               '(category-keep))))
+                  )
+                 nil)
+                 )))
 
   (defun bh/org-auto-exclude-function (tag)
     "Automatic task exclusion in the agenda with / RET"
@@ -569,21 +602,21 @@ so change the default 'F' binding in the agenda to allow both"
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls,
   ;; meetings, and org-protocol
   (setq org-capture-templates
-        (quote (("t" "todo" entry (file (expand-file-name "refile.org" user-org-dir))
+        (quote (("t" "todo" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(`expand-file-name "refile.org" user-org-dir))
                  "*** TODO %?\n%U\n" :clock-in t :clock-resume t)
-                ("r" "respond" entry (file (expand-file-name "refile.org" user-org-dir))
+                ("r" "respond" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n" :clock-in t :clock-resume t :immediate-finish t)
-                ("n" "note" entry (file (expand-file-name "refile.org" user-org-dir))
+                ("n" "note" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** %? :NOTE:\n%U\n" :clock-in t :clock-resume t)
                 ("j" "Journal" entry (file+datetree (expand-file-name "diary.org" user-org-dir))
                  "*** %?\n%U\n" :clock-in t :clock-resume t)
-                ("w" "org-protocol" entry (file (expand-file-name "refile.org" user-org-dir))
+                ("w" "org-protocol" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** TODO Review %c\n%U\n" :immediate-finish t)
-                ("m" "Meeting" entry (file (expand-file-name "refile.org" user-org-dir))
+                ("m" "Meeting" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** MEET with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                ("p" "Phone call" entry (file (expand-file-name "refile.org" user-org-dir))
+                ("p" "Phone call" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** PHON %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                ("h" "Habit" entry (file (expand-file-name "refile.org" user-org-dir))
+                ("h" "Habit" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** NEXT %?\n%U\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
   ;; Remove empty LOGBOOK drawers on clock out
