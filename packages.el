@@ -606,14 +606,14 @@ so change the default 'F' binding in the agenda to allow both"
   (setq org-capture-templates
         (quote (("t" "todo" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(`expand-file-name "refile.org" user-org-dir))
                  "*** TODO %?\n%U\n" :clock-in t :clock-resume t)
-                ("r" "respond" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
-                 "*** NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n" :clock-in t :clock-resume t :immediate-finish t)
+                ("r" "reminder" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\reminders.org");;(`expand-file-name "reminders.org" user-org-dir))
+                 "*** TODO %?\n%U\n")
+                ("s" "shopping" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\shopping.org");;(`expand-file-name "shopping.org" user-org-dir))
+                 "*** TODO %?\n%U\n")
                 ("n" "note" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** %? :NOTE:\n%U\n" :clock-in t :clock-resume t)
                 ("j" "Journal" entry (file+datetree (expand-file-name "diary.org" user-org-dir))
                  "*** %?\n%U\n" :clock-in t :clock-resume t)
-                ("w" "org-protocol" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
-                 "*** TODO Review %c\n%U\n" :immediate-finish t)
                 ("m" "Meeting" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** MEET with %? :MEETING:\n%U" :clock-in t :clock-resume t)
                 ("p" "Phone call" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
@@ -688,7 +688,7 @@ so change the default 'F' binding in the agenda to allow both"
   ;; Include current clocking task in clock reports
   (setq org-clock-report-include-clocking-task t)
   ;; Resolve open clocks if the user is idle for more than 10 minutes.
-  (setq org-clock-idle-time 10)
+  ;;(setq org-clock-idle-time 10)
   ;;
   ;; Resume clocking task when emacs is restarted
   (org-clock-persistence-insinuate)
