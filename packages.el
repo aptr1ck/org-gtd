@@ -508,6 +508,8 @@ so change the default 'F' binding in the agenda to allow both"
   (global-set-key (kbd "<f9> g") 'gnus)
   (global-set-key (kbd "<f9> h") 'bh/hide-other)
   (global-set-key (kbd "<f9> H") (lambda() (interactive)(find-file (expand-file-name "index.org" user-org-dir))))
+  (global-set-key (kbd "<f9> l") 'org-store-link)
+  (global-set-key (kbd "<f9> L") 'org-insert-link)
   (global-set-key (kbd "<f9> n") 'bh/toggle-next-task-display)
 
   (global-set-key (kbd "<f9> I") 'bh/punch-in)
@@ -523,7 +525,7 @@ so change the default 'F' binding in the agenda to allow both"
   (global-set-key (kbd "<f9> T") 'bh/toggle-insert-inactive-timestamp)
 
   (global-set-key (kbd "<f9> v") 'visible-mode)
-  (global-set-key (kbd "<f9> l") 'org-toggle-link-display)
+  ;;(global-set-key (kbd "<f9> l") 'org-toggle-link-display)
   (global-set-key (kbd "<f9> SPC") 'bh/clock-in-last-task)
   (global-set-key (kbd "C-<f9>") 'previous-buffer)
   (global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
