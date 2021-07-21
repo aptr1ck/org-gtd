@@ -1120,7 +1120,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
   (setq org-list-allow-alphabetical t)
 
   ;; create timestamps when headings are created
-  (defvar bh/insert-inactive-timestamp t)
+  (defvar bh/insert-inactive-timestamp nil)
 
   (defun bh/toggle-insert-inactive-timestamp ()
     (interactive)
