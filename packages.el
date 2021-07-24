@@ -73,7 +73,7 @@
 
 ;; PMcD 2021.07.17
 ;; Specify path to org files
-(defconst user-org-dir "~/org" "org files location") ;;"C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\" "org files location")
+(defconst user-org-dir "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\" "org files location")
 
 ;; Specify path to org files for mobileorg
 ;;(setq org-directory "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\")
@@ -607,21 +607,21 @@ so change the default 'F' binding in the agenda to allow both"
   ;; Capture templates for: TODO tasks, Notes, appointments, phone calls,
   ;; meetings, and org-protocol
   (setq org-capture-templates
-        (quote (("t" "todo" entry (file "~/org/refile.org");;(`expand-file-name "refile.org" user-org-dir))
+        (quote (("t" "todo" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(`expand-file-name "refile.org" user-org-dir))
                  "*** TODO %?\n%U\n" :clock-in t :clock-resume t)
-                ("r" "reminder" entry (file "~/org/reminders.org");;(`expand-file-name "reminders.org" user-org-dir))
+                ("r" "reminder" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\reminders.org");;(`expand-file-name "reminders.org" user-org-dir))
                  "*** TODO %?\n%U\n")
-                ("s" "shopping" entry (file "~/org/shopping.org");;(`expand-file-name "shopping.org" user-org-dir))
+                ("s" "shopping" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\shopping.org");;(`expand-file-name "shopping.org" user-org-dir))
                  "*** TODO %?\n%U\n")
-                ("n" "note" entry (file "~/org/refile.org");;(expand-file-name "refile.org" user-org-dir))
+                ("n" "note" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** %? :NOTE:\n%U\n" :clock-in t :clock-resume t)
                 ("j" "Journal" entry (file+datetree (expand-file-name "diary.org" user-org-dir))
                  "*** %?\n%U\n" :clock-in t :clock-resume t)
-                ("m" "Meeting" entry (file "~/org/refile.org");;(expand-file-name "refile.org" user-org-dir))
+                ("m" "Meeting" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** MEET with %? :MEETING:\n%U" :clock-in t :clock-resume t)
-                ("p" "Phone call" entry (file "~/org/refile.org");;(expand-file-name "refile.org" user-org-dir))
+                ("p" "Phone call" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** PHON %? :PHONE:\n%U" :clock-in t :clock-resume t)
-                ("h" "Habit" entry (file "~/org/refile.org");;(expand-file-name "refile.org" user-org-dir))
+                ("h" "Habit" entry (file "C:\\Users\\patri\\iCloudDrive\\iCloud~com~appsonthemove~beorg\\org\\refile.org");;(expand-file-name "refile.org" user-org-dir))
                  "*** NEXT %?\n%U\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
 
   ;; Remove empty LOGBOOK drawers on clock out
